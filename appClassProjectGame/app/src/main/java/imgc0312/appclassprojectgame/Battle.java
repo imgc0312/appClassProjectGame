@@ -49,14 +49,14 @@ public class Battle extends Activity {
         skillBt2 = (Button) findViewById(R.id.skillBt2);
         skillBt3 = (Button) findViewById(R.id.skillBt3);
 
-        MyRole player = new MyRole("player");
+        /*MyRole player = new MyRole("player");
         player.skills.set(0,skill1);
         player.skills.set(1,skill2);
         player.skills.set(2,skill3);
         MyRole enemy = new MyRole("enemy");
         enemy.skills.set(0,skill1);
         enemy.skills.set(1,skill2);
-        enemy.skills.set(2,skill3);
+        enemy.skills.set(2,skill3);*/
     }
 
     protected class goBack implements View.OnClickListener{
