@@ -24,8 +24,13 @@ public class MyFormula {
     public double count(INFO info) throws Exception {
         if (RD.nextDouble() > r )
             return 0.0;
+        if(A.equals(""))
+            return c;
         if(!info.containsKey(A))
             throw new Exception("count: !info.containsKey " + A);
         return (n * info.get(A) + c);
+    }
+    public MyFormula clone(){
+        return new MyFormula(r,T,n,A,c);
     }
 }

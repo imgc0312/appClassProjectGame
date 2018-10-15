@@ -20,10 +20,13 @@ public class MyRole {
     static Random rd = new Random();
     public String name = "null";
     public INFO info = new INFO(true);
-    public List<MySkill> skills = new ArrayList <> (3);
+    public List<MySkill> skills = new ArrayList <MySkill> (3);
 
     MyRole(String name){
         this.name = name;
+        skills.add(new MySkill("null", "no skill"));
+        skills.add(new MySkill("null", "no skill"));
+        skills.add(new MySkill("null", "no skill"));
     }
 
     public INFO use(MySkill choose, String message) {//generate choose effect by info & store ineffect message & return outEffect

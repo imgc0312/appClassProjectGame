@@ -17,4 +17,12 @@ public class MySkill {
         this.name = name;
         this.text = text;
     }
+    public MySkill clone(){
+        MySkill copy = new MySkill(name, text);
+        for (int i=0; i<3 ;i++){
+            copy.outFormula.set(i,outFormula.get(i).clone());
+            copy.inFormula.set(i,inFormula.get(i).clone());
+        }
+        return copy;
+    }
 }

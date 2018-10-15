@@ -46,17 +46,20 @@ public class Battle extends Activity {
         battleScroll = (LinearLayout) findViewById(R.id.battleScroll);
 
         skillBt1 = (Button) findViewById(R.id.skillBt1);
+        skillBt1.setOnClickListener(new SkillBt());
         skillBt2 = (Button) findViewById(R.id.skillBt2);
+        skillBt2.setOnClickListener(new SkillBt());
         skillBt3 = (Button) findViewById(R.id.skillBt3);
+        skillBt3.setOnClickListener(new SkillBt());
 
-        /*MyRole player = new MyRole("player");
+        MyRole player = new MyRole("player");
         player.skills.set(0,skill1);
         player.skills.set(1,skill2);
         player.skills.set(2,skill3);
         MyRole enemy = new MyRole("enemy");
         enemy.skills.set(0,skill1);
         enemy.skills.set(1,skill2);
-        enemy.skills.set(2,skill3);*/
+        enemy.skills.set(2,skill3);
     }
 
     protected class goBack implements View.OnClickListener{
@@ -69,7 +72,22 @@ public class Battle extends Activity {
     protected class SkillBt implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-
+            String message = "";
+            switch (v.getId()){
+                case R.id.skillBt1:
+                    message += "skillBt 1";
+                    break;
+                case R.id.skillBt2:
+                    message += "skillBt 2";
+                    break;
+                case R.id.skillBt3:
+                    message += "skillBt 3";
+                    break;
+                default:
+                    message += "unknown bt";
+            }
+            message += " 被按下 !!";
+            declareView.setText(message);
         }
     }
 }
