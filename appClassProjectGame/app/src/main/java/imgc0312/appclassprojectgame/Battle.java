@@ -2,6 +2,9 @@ package imgc0312.appclassprojectgame;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,6 +29,28 @@ public class Battle extends Activity {
     TextView infoPlayer,infoEnemy;
     LinearLayout battleScroll;
     Button skillBt1,skillBt2,skillBt3;
+
+    static final int msgSkill = 0x411;
+    BattleRun runThread;
+
+    class BattleRun extends Thread{
+        public Handler runHandle;
+
+        public void run(){
+            Looper.prepare();
+            runHandle = new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    switch (msg.what){
+                        case msgSkill:
+                            declareView.setText(msg.getData().get("") + "in thread ");
+                            break;
+                    }
+                }
+            };
+            Looper.loop();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +85,9 @@ public class Battle extends Activity {
         enemy.skills.set(0,skill1);
         enemy.skills.set(1,skill2);
         enemy.skills.set(2,skill3);
+
+        runThread = new BattleRun();
+        runThread.start();
     }
 
     protected class goBack implements View.OnClickListener{
@@ -72,6 +100,8 @@ public class Battle extends Activity {
     protected class SkillBt implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+            Message msg = new Message();
+            Bundle bundle = new Bundle();
             String message = "";
             switch (v.getId()){
                 case R.id.skillBt1:
@@ -87,7 +117,11 @@ public class Battle extends Activity {
                     message += "unknown bt";
             }
             message += " 被按下 !!";
-            declareView.setText(message);
+            msg.what = msgSkill;
+            bundle.putString("",message);
+            msg.setData(bundle);
+            runThread.runHandle.sendMessage(msg);
+            //declareView.setText(message);
         }
     }
 }
