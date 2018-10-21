@@ -33,12 +33,12 @@ public class INFO extends HashMap<String, Double>{
 
     public String normalText(){
         return new String(
-                "Lv           :    " + this.get("Lv") + "<br/>" +
-                "Hp           :    " + this.get("Hp") + "<br/>" +
-                "ATK        :    " + (this.get("Ori_ATK") + this.get("ATK")) + "<br/>" +
-                "DEF         :    " + this.get("DEF") + "<br/>" +
-                "CHARGE  :    " + this.get("CHARGE") + "<br/>" +
-                "Exp         :    " + this.get("Exp")
+                "Lv\t\t\t\t\t\t\t:\t\t\t" + this.get("Lv") + "\n" +
+                "Hp\t\t\t\t\t\t:\t\t\t" + this.get("Hp") + "\n" +
+                "ATK\t\t\t\t\t:\t\t\t" + (this.get("Ori_ATK") + this.get("ATK")) + "\n" +
+                "DEF\t\t\t\t\t:\t\t\t" + this.get("DEF") + "\n" +
+                "CHARGE\t:\t\t\t" + this.get("CHARGE") + "\n" +
+                "Exp\t\t\t\t\t:\t\t\t" + this.get("Exp")
         );
     }
 

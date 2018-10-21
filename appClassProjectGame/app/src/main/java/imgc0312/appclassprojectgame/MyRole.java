@@ -63,7 +63,7 @@ public class MyRole {
         message = "";
         message += name + " 使用了 " + choose.name;
         for(String oneKey:inEffect.keySet()){
-            message += "<br/>" + name + " 的 " + oneKey + " 產生 " + inEffect.get(oneKey) +" 的改變";
+            message += "\n" + name + " 的 " + oneKey + " 產生 " + inEffect.get(oneKey) +" 的改變";
         }
         return  outEffect;
     }
@@ -73,7 +73,7 @@ public class MyRole {
         if(!effect.isEmpty())
             message += name + " 受到了影響 ";
         for(String oneKey:effect.keySet()){
-            message += "<br/>" + name + " 的 " + oneKey + " 受到 " + effect.get(oneKey) +" 的改變";
+            message += "\n" + name + " 的 " + oneKey + " 受到 " + effect.get(oneKey) +" 的改變";
         }
     }
 }
