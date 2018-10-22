@@ -1,5 +1,7 @@
 package imgc0312.appclassprojectgame;
 
+import android.util.Log;
+
 import java.util.Random;
 
 /**
@@ -22,11 +24,18 @@ public class MyFormula {
         this.c = c;
     }
     public double count(INFO info) throws Exception {
-        if (RD.nextDouble() > r )
+        if (RD.nextDouble() > r ) {
+            Log.d("countRD"," " + r);
             return 0.0;
-        if(A.equals(""))
+        }
+        if(A.equals("")) {
+            Log.d("count A"," equals null");
             return c;
-        if(!info.containsKey(A))
+        }
+        else if(A.equals("ATK")){
+            return (n * info.get("Ori_ATK") + info.get("Buf_ATK") + c);
+        }
+        else if(!info.containsKey(A))
             throw new Exception("count: !info.containsKey " + A);
         return (n * info.get(A) + c);
     }

@@ -21,7 +21,7 @@ public class INFO extends HashMap<String, Double>{
             put("Hp", iniMAX_Hp);
             put("MAX_Hp", iniMAX_Hp);
             put("Ori_ATK", iniATK);
-            put("ATK", 0.0);
+            put("Buf_ATK", 0.0);
             put("DEF", 0.0);
             put("MAX_DEF", iniMAX_DEF);
             put("CHARGE", 0.0);
@@ -35,7 +35,7 @@ public class INFO extends HashMap<String, Double>{
         return new String(
                 "Lv\t\t\t\t\t\t\t:\t\t\t" + this.get("Lv") + "\n" +
                 "Hp\t\t\t\t\t\t:\t\t\t" + this.get("Hp") + "\n" +
-                "ATK\t\t\t\t\t:\t\t\t" + (this.get("Ori_ATK") + this.get("ATK")) + "\n" +
+                "ATK\t\t\t\t\t:\t\t\t" + (this.get("Ori_ATK") + this.get("Buf_ATK")) + "\n" +
                 "DEF\t\t\t\t\t:\t\t\t" + this.get("DEF") + "\n" +
                 "CHARGE\t:\t\t\t" + this.get("CHARGE") + "\n" +
                 "Exp\t\t\t\t\t:\t\t\t" + this.get("Exp")
