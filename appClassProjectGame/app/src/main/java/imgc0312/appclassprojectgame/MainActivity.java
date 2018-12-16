@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import static java.lang.System.*;
-
 public class MainActivity extends Activity {//AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button startButton = (Button)findViewById(R.id.StartButton);
+        Button startButton = (Button)findViewById(R.id.TheButton);
         startButton.setOnClickListener(new GameStart());
         Button loadButton = (Button)findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(new GameStart());
@@ -25,7 +23,7 @@ public class MainActivity extends Activity {//AppCompatActivity
     protected class GameStart implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent().setClass(MainActivity.this, Battle.class);
+            Intent intent = new Intent().setClass(MainActivity.this, TableHockeyActivity.class);
             Bundle bundle = new Bundle();
             intent.putExtras(bundle);
             startActivity(intent);

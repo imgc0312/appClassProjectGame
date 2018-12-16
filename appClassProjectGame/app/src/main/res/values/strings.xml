@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">appClassProjectGame</string>
     <string name="title_activity_battle">Battle</string>
+    <string name="title_activity_TableHockey">TableHockey</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+    <string name="game_title">THE GAME</string>
+    <string name="Start">Start</string>
+    <string name="Load">Load</string>
+    <string name="Exit">Exit</string>
 </resources>
