@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,9 +18,9 @@ public class MyBallView extends MyObjectView {
 
     MyObjectView[] relativeObject = new MyObjectView[0];
     boolean moveState = false;// when true=> move by speed
+    Handler gameEvent = null;
     public Handler handler = new Handler()
     {
-        int i = 0;
         @Override
         public void handleMessage(Message msg) {
             //判断信息是否为本应用发出的
@@ -52,6 +53,10 @@ public class MyBallView extends MyObjectView {
         }, 0,5);
     }
 
+    public void connect(Handler gameEvent){
+        this.gameEvent = gameEvent;
+    }
+
     public void setRelativeObject(MyObjectView... args){
         if(args != null)
             relativeObject = args;
@@ -62,6 +67,8 @@ public class MyBallView extends MyObjectView {
         lastLocationY = locationY;
         locationX += speedX;
         locationY += speedY;
+        speedX*=0.997;
+        speedY*=0.997;
         float[] center = this.getCenter();
 //        if ((center[0] < 0) && (speedX < 0))
 //            speedX *= -1;
@@ -73,7 +80,9 @@ public class MyBallView extends MyObjectView {
 //            speedY *= -1;
 
         for(MyObjectView testObject : relativeObject){// test collision
+            //Log.d("Collision Test", testObject.toString());
             if(this.isCollision(testObject)){
+                Log.d("Collision Test", testObject.toString());
 //                float[] testCenter = testObject.getCenter();
 //                if((speedX < 0) && (center[0] > testCenter[0]))
 //                    speedX *= -1;
@@ -89,6 +98,18 @@ public class MyBallView extends MyObjectView {
 
         //通知组件进行重绘
         this.invalidate();
-    }
 
+        if(this.getObjectBound(WAY.RIGHT) < this.getLeft()){
+            handler.sendEmptyMessage(MSG_STOP);
+            if(gameEvent != null){
+                gameEvent.sendEmptyMessage(TableHockeyActivity.MSG_RIGHTWIN);
+            }
+        }
+        else if(this.getObjectBound(WAY.LEFT) > this.getRight()){
+            handler.sendEmptyMessage(MSG_STOP);
+            if(gameEvent != null){
+                gameEvent.sendEmptyMessage(TableHockeyActivity.MSG_LEFTWIN);
+            }
+        }
+    }
 }

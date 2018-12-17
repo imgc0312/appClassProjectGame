@@ -92,6 +92,15 @@ public class MyObjectView extends View {
         locationY = 0;
         lastLocationX = locationX;
         lastLocationY = locationY;
+        switch (theShape) {
+            case CIRCLE:
+                theWidth = (theHeight = 2* radius);
+                break;
+            case RECT:
+                theWidth = this.getRight() - this.getLeft();
+                theHeight = this.getBottom() - this.getTop();
+                break;
+        }
         speedX = 0;
         speedY = 0;
         //re draw
@@ -100,18 +109,27 @@ public class MyObjectView extends View {
 
     public void initial(iniLocation locationMode){
         //Log.d("onInitail nullarg", "(" +this.getWidth() + "," + this.getHeight() + ")");
+        switch (theShape) {
+            case CIRCLE:
+                theWidth = (theHeight = 2* radius);
+                break;
+            case RECT:
+                theWidth = this.getRight() - this.getLeft();
+                theHeight = this.getBottom() - this.getTop();
+                break;
+        }
         switch (locationMode){
             case LEFT:
-                locationX = (float)this.getWidth() / 4;
-                locationY = (float)this.getHeight() / 2;
+                locationX = (float)this.getWidth() / 4 - theWidth/2;
+                locationY = (float)this.getHeight() / 2 - theHeight/2;
                 break;
             case CENTER:
-                locationX = (float)this.getWidth() / 2;
-                locationY = (float)this.getHeight() / 2;
+                locationX = (float)this.getWidth() / 2 - theWidth/2;
+                locationY = (float)this.getHeight() / 2 - theHeight/2;
                 break;
             case RIGHT:
-                locationX = (float)this.getWidth() * 3 / 4;
-                locationY = (float)this.getHeight() / 2;
+                locationX = (float)this.getWidth() * 3 / 4 - theWidth/2;
+                locationY = (float)this.getHeight() / 2 - theHeight/2;
                 break;
         }
         lastLocationX = locationX;
@@ -130,6 +148,15 @@ public class MyObjectView extends View {
         lastLocationY = locationY;
         speedX = 0;
         speedY = 0;
+        switch (theShape) {
+            case CIRCLE:
+                theWidth = (theHeight = 2* radius);
+                break;
+            case RECT:
+                theWidth = this.getRight() - this.getLeft();
+                theHeight = this.getBottom() - this.getTop();
+                break;
+        }
         //re draw
         this.invalidate();
     }
@@ -137,13 +164,16 @@ public class MyObjectView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //Log.d("onTouch Draw",  "(" +locationX  + "+" + activeRect.left + "," + locationY + "+" + activeRect.top + ")");
+        //Log.d("onDraw",  "(" +locationX  + "+" + activeRect.left + "," + locationY + "+" + activeRect.top + ")");
         switch (theShape){
             case RECT:
+                //Log.d("onDraw","RECT " + this.toString());
                 canvas.drawRect(locationX, locationY, locationX +theWidth, locationY +theHeight, paint);
                 break;
             case CIRCLE:
-                canvas.drawCircle(locationX, locationY, radius, paint);
+                //Log.d("onDraw","CIRCLE " + this.toString());
+
+                canvas.drawCircle(locationX + radius, locationY + radius, radius, paint);
                 break;
         }
     }
@@ -151,8 +181,8 @@ public class MyObjectView extends View {
     public boolean isCollision(MyObjectView testObject){
         switch (testObject.theShape){
             case RECT:
-                return isCollisionWithRect(this.locationX, this.locationY, this.radius*2, this.radius*2,
-                        testObject.lastLocationX, testObject.lastLocationY, testObject.theWidth, testObject.theHeight);
+                return isCollisionWithRect(this.getObjectBound(WAY.LEFT), this.getObjectBound(WAY.TOP), this.radius*2, this.radius*2,
+                        testObject.getObjectBound(WAY.LEFT), testObject.getObjectBound(WAY.TOP), testObject.theWidth, testObject.theHeight);
             case CIRCLE:
                 return isCollisionWithCircle(this.getCenter(), this.radius, testObject.getCenter(), testObject.radius);
         }

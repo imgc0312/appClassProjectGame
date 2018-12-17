@@ -7,6 +7,53 @@
     tools:context=".TableHockeyActivity"
     tools:layout_editor_absoluteY="25dp">
 
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/TopWall"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/BottomWall"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/LeftWall1"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="180px"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/LeftWall2"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/LeftWall2"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="180px"
+        app:layout_constraintTop_toBottomOf="@+id/LeftWall1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/RightWall1"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="180px"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/RightWall2"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <imgc0312.appclassprojectgame.MyWallView
+        android:id="@+id/RightWall2"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="180px"
+        app:layout_constraintTop_toBottomOf="@+id/RightWall1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
@@ -36,7 +83,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/layout_left"
         app:layout_constraintEnd_toEndOf="@+id/layout_left"
@@ -48,7 +95,7 @@
         android:id="@+id/right_Player"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
@@ -66,7 +113,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/layout_right"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/layout_right"
@@ -80,43 +129,28 @@
 
     </FrameLayout>
 
-    <imgc0312.appclassprojectgame.MyWallView
-        android:id="@+id/TopWall"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <imgc0312.appclassprojectgame.MyWallView
-        android:id="@+id/BottomWall"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <imgc0312.appclassprojectgame.MyWallView
-        android:id="@+id/LeftWall"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <imgc0312.appclassprojectgame.MyWallView
-        android:id="@+id/RightWall"
-        android:layout_width="20dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <Button
         android:id="@+id/TheButton"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/Start"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/TheButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <Button
+        android:id="@+id/TheButton2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/Back"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/TheButton" />
 
 </android.support.constraint.ConstraintLayout>
