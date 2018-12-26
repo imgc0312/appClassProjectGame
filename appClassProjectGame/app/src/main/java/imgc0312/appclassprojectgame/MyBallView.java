@@ -11,6 +11,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MyBallView extends MyObjectView {
+    public static int flashPriod = 5;
+    public static double moveSlow = 0.003;//the speed loss when move
+    
     //MSG what
     public static final int MSG_RUN = 0x666;
     public static final int MSG_STOP = 0x777;
@@ -50,7 +53,7 @@ public class MyBallView extends MyObjectView {
                 //发送一条空信息来通知系统改变前景图片
                 handler.sendEmptyMessage(MSG_KEEP);
             }
-        }, 0,5);
+        }, 0,flashPriod);
     }
 
     public void connect(Handler gameEvent){
@@ -67,8 +70,8 @@ public class MyBallView extends MyObjectView {
         lastLocationY = locationY;
         locationX += speedX;
         locationY += speedY;
-        speedX*=0.997;
-        speedY*=0.997;
+        speedX*=(1 - moveSlow);
+        speedY*=(1 - moveSlow);
         float[] center = this.getCenter();
 //        if ((center[0] < 0) && (speedX < 0))
 //            speedX *= -1;
@@ -97,7 +100,7 @@ public class MyBallView extends MyObjectView {
         }
 
         //通知组件进行重绘
-        this.invalidate();
+        //this.invalidate();
 
         if(this.getObjectBound(WAY.RIGHT) < this.getLeft()){
             handler.sendEmptyMessage(MSG_STOP);
