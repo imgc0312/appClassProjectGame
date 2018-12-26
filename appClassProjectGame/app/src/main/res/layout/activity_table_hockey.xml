@@ -109,22 +109,10 @@
         android:id="@+id/layout_left"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/layout_right"
+        app:layout_constraintEnd_toEndOf="@id/CM"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textViewLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="50sp"
-            android:text="@string/WIN"
-            android:rotation="90"
-            />
     </FrameLayout>
 
     <FrameLayout
@@ -133,20 +121,37 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/layout_left"
+        app:layout_constraintStart_toStartOf="@id/CM"
         app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:id="@+id/textViewRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="50sp"
-            android:text="@string/LOSE"
-            android:rotation="-90"
-            />
     </FrameLayout>
-
+    <TextView
+        android:id="@+id/textViewLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:text="@string/WIN"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="@id/LM"
+        app:layout_constraintEnd_toEndOf="@id/LM"
+        app:layout_constraintStart_toStartOf="@id/LM"
+        app:layout_constraintTop_toTopOf="@id/LM"
+        />
+    <TextView
+        android:id="@+id/textViewRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:text="@string/LOSE"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="@id/RM"
+        app:layout_constraintEnd_toEndOf="@id/RM"
+        app:layout_constraintStart_toStartOf="@id/RM"
+        app:layout_constraintTop_toTopOf="@id/RM"
+        />
     <Button
         android:id="@+id/TheButton"
         android:layout_width="150dp"
@@ -170,5 +175,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TheButton" />
+
+    <View
+        android:id="@+id/LM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/CM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/CM"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/RM"
+        app:layout_constraintStart_toEndOf="@id/LM"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/RM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/CM"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -23,31 +23,55 @@ public class MyWallView extends MyObjectView {
     @Override
     public void collisionEffect(MyObjectView effectObject) {
 
-        double collosionTimeX = Double.MIN_VALUE;
-        double collosionTimeY = Double.MIN_VALUE;
-        if(wallTop || wallBottom){
-            collosionTimeY = (effectObject.getObjectBound(WAY.BOTTOM) - this.getObjectBound(WAY.TOP)) / effectObject.speedY;
-            double t = (effectObject.getObjectBound(WAY.TOP) - this.getObjectBound(WAY.BOTTOM)) / effectObject.speedY;
-            if(t >  collosionTimeY)
-                collosionTimeY = t;
+        double backOutTimeX = Double.MAX_VALUE;
+        double backOutTimeY = Double.MAX_VALUE;
+        if(wallTop){
+            double t = (effectObject.getObjectBound(WAY.BOTTOM) - this.getObjectBound(WAY.TOP)) / effectObject.speedY;
+            if((t >= 0) && (t <  backOutTimeY))
+                backOutTimeY = t;
         }
-        if(wallLeft || wallRight){
-            collosionTimeX = (effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT)) / effectObject.speedX;
+        if(wallBottom){
+            double t = (effectObject.getObjectBound(WAY.TOP) - this.getObjectBound(WAY.BOTTOM)) / effectObject.speedY;
+            if((t >= 0) && (t <  backOutTimeY))
+                backOutTimeY = t;
+        }
+        if(wallLeft){
+            double t = (effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT)) / effectObject.speedX;
+            if((t >= 0) && (t <  backOutTimeX))
+                backOutTimeX = t;
+        }
+        if(wallRight){
             double t = (effectObject.getObjectBound(WAY.LEFT) - this.getObjectBound(WAY.RIGHT)) / effectObject.speedX;
-            if(t >  collosionTimeX)
-                collosionTimeX = t;
+            if((t >= 0) && (t <  backOutTimeX))
+                backOutTimeX = t;
         }
 
         //X collision
-        if ((effectObject.getObjectBound(WAY.LEFT) < this.getObjectBound(WAY.RIGHT)) && (effectObject.speedX < 0) && this.wallRight) {
-            Log.d("Wall collision", "cL");
-            effectObject.speedX *= -0.99;
-            effectObject.locationX -= effectObject.getObjectBound(WAY.LEFT) - this.getObjectBound(WAY.RIGHT);
+        if(backOutTimeY >= backOutTimeX * 0.95){
+            if ((effectObject.getObjectBound(WAY.LEFT) < this.getObjectBound(WAY.RIGHT)) && (effectObject.speedX < 0) && this.wallRight) {
+                Log.d("Wall collision", "cL");
+                effectObject.speedX *= -0.99;
+                effectObject.locationX -= effectObject.getObjectBound(WAY.LEFT) - this.getObjectBound(WAY.RIGHT);
+            }
+            else if ((effectObject.getObjectBound(WAY.RIGHT) > this.getObjectBound(WAY.LEFT)) && (effectObject.speedX > 0) && this.wallLeft) {
+                Log.d("Wall collision", "cR");
+                effectObject.speedX *= -0.99;
+                effectObject.locationX -= effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT);
+            }
         }
-        else if ((effectObject.getObjectBound(WAY.RIGHT) > this.getObjectBound(WAY.LEFT)) && (effectObject.speedX > 0) && this.wallLeft) {
-            Log.d("Wall collision", "cR");
-            effectObject.speedX *= -0.99;
-            effectObject.locationX -= effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT);
+
+        //Y collision
+        if(backOutTimeX >= backOutTimeY * 0.95){
+            if ((effectObject.getObjectBound(WAY.TOP) < this.getObjectBound(WAY.BOTTOM)) && (effectObject.speedY < 0) && this.wallBottom) {
+                Log.d("Wall collision", "cT");
+                effectObject.speedY *= -0.99;
+                effectObject.locationY -= effectObject.getObjectBound(WAY.TOP) - this.getObjectBound(WAY.BOTTOM);
+            }
+            else if ((effectObject.getObjectBound(WAY.BOTTOM) > this.getObjectBound(WAY.TOP)) && (effectObject.speedY > 0) && this.wallTop) {
+                Log.d("Wall collision", "cB");
+                effectObject.speedY *= -0.99;
+                effectObject.locationY -= effectObject.getObjectBound(WAY.BOTTOM) - this.getObjectBound(WAY.TOP);
+            }
         }
         super.collisionEffect(effectObject);
     }

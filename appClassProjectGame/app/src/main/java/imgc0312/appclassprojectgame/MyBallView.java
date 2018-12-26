@@ -11,8 +11,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MyBallView extends MyObjectView {
-    public static int flashPriod = 5;
-    public static double moveSlow = 0.003;//the speed loss when move
+    public static int flashPriod = 1;
+    public static double moveSlow = 0.0005;//the speed loss when move
 
     //MSG what
     public static final int MSG_RUN = 0x666;
@@ -70,8 +70,8 @@ public class MyBallView extends MyObjectView {
         lastLocationY = locationY;
         locationX += speedX;
         locationY += speedY;
-        speedX*=0.999;
-        speedY*=0.999;
+        speedX*=(1 - moveSlow);
+        speedY*=(1 - moveSlow);
         float[] center = this.getCenter();
 //        if ((center[0] < 0) && (speedX < 0))
 //            speedX *= -1;
