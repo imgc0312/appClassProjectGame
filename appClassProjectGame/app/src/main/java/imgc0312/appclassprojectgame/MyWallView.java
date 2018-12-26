@@ -23,16 +23,19 @@ public class MyWallView extends MyObjectView {
     @Override
     public void collisionEffect(MyObjectView effectObject) {
 
-        //Y collision
-        if ((effectObject.getObjectBound(WAY.BOTTOM) > this.getObjectBound(WAY.TOP)) && (effectObject.speedY > 0) && this.wallTop) {
-            Log.d("Wall collision", "cB");
-            effectObject.speedY *= -0.97;
-            effectObject.locationY -= effectObject.getObjectBound(WAY.BOTTOM) - this.getObjectBound(WAY.TOP);
+        double collosionTimeX = Double.MIN_VALUE;
+        double collosionTimeY = Double.MIN_VALUE;
+        if(wallTop || wallBottom){
+            collosionTimeY = (effectObject.getObjectBound(WAY.BOTTOM) - this.getObjectBound(WAY.TOP)) / effectObject.speedY;
+            double t = (effectObject.getObjectBound(WAY.TOP) - this.getObjectBound(WAY.BOTTOM)) / effectObject.speedY;
+            if(t >  collosionTimeY)
+                collosionTimeY = t;
         }
-        else if ((effectObject.getObjectBound(WAY.TOP) < this.getObjectBound(WAY.BOTTOM)) && (effectObject.speedY < 0) && this.wallBottom) {
-            Log.d("Wall collision", "cT");
-            effectObject.speedY *= -0.97;
-            effectObject.locationY -= effectObject.getObjectBound(WAY.TOP) - this.getObjectBound(WAY.BOTTOM);
+        if(wallLeft || wallRight){
+            collosionTimeX = (effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT)) / effectObject.speedX;
+            double t = (effectObject.getObjectBound(WAY.LEFT) - this.getObjectBound(WAY.RIGHT)) / effectObject.speedX;
+            if(t >  collosionTimeX)
+                collosionTimeX = t;
         }
 
         //X collision
