@@ -38,12 +38,12 @@ public class MyWallView extends MyObjectView {
         //X collision
         if ((effectObject.getObjectBound(WAY.LEFT) < this.getObjectBound(WAY.RIGHT)) && (effectObject.speedX < 0) && this.wallRight) {
             Log.d("Wall collision", "cL");
-            effectObject.speedX *= -0.97;
+            effectObject.speedX *= -0.99;
             effectObject.locationX -= effectObject.getObjectBound(WAY.LEFT) - this.getObjectBound(WAY.RIGHT);
         }
         else if ((effectObject.getObjectBound(WAY.RIGHT) > this.getObjectBound(WAY.LEFT)) && (effectObject.speedX > 0) && this.wallLeft) {
             Log.d("Wall collision", "cR");
-            effectObject.speedX *= -0.97;
+            effectObject.speedX *= -0.99;
             effectObject.locationX -= effectObject.getObjectBound(WAY.RIGHT) - this.getObjectBound(WAY.LEFT);
         }
         super.collisionEffect(effectObject);

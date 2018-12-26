@@ -26,8 +26,8 @@ public class MyPlayerView extends MyObjectView {
             this.locationY = event.getY() - radius;
         float[] center = this.getCenter();
         Log.d("onTouch Center",  "(" + center[0] + "," + center[1] + ")");
-        //通知组件进行重绘
-        this.invalidate();
+//        //通知组件进行重绘
+//        this.invalidate();
         return true;
     }
 

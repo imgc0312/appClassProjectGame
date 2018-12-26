@@ -15,7 +15,7 @@ public class MyBallView extends MyObjectView {
     public static final int MSG_RUN = 0x666;
     public static final int MSG_STOP = 0x777;
     public static final int MSG_KEEP = 0x123;
-
+    int flashCount = 0;
     MyObjectView[] relativeObject = new MyObjectView[0];
     boolean moveState = false;// when true=> move by speed
     Handler gameEvent = null;
@@ -67,8 +67,8 @@ public class MyBallView extends MyObjectView {
         lastLocationY = locationY;
         locationX += speedX;
         locationY += speedY;
-        speedX*=0.997;
-        speedY*=0.997;
+        speedX*=0.999;
+        speedY*=0.999;
         float[] center = this.getCenter();
 //        if ((center[0] < 0) && (speedX < 0))
 //            speedX *= -1;
@@ -96,16 +96,24 @@ public class MyBallView extends MyObjectView {
             }
         }
 
-        //通知组件进行重绘
-        this.invalidate();
+//        //通知组件进行重绘
+//        if(flashCount%5 == 0){// reduce flash times
+//            this.invalidate();
+//            flashCount = 1;
+//        }
+//        else {
+//            flashCount++;
+//        }
 
         if(this.getObjectBound(WAY.RIGHT) < this.getLeft()){
+            this.invalidate();
             handler.sendEmptyMessage(MSG_STOP);
             if(gameEvent != null){
                 gameEvent.sendEmptyMessage(TableHockeyActivity.MSG_RIGHTWIN);
             }
         }
         else if(this.getObjectBound(WAY.LEFT) > this.getRight()){
+            this.invalidate();
             handler.sendEmptyMessage(MSG_STOP);
             if(gameEvent != null){
                 gameEvent.sendEmptyMessage(TableHockeyActivity.MSG_LEFTWIN);

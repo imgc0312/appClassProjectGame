@@ -25,7 +25,7 @@
         android:id="@+id/LeftWall1"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="180px"
+        android:layout_marginBottom="220px"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/LeftWall2"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -33,7 +33,7 @@
         android:id="@+id/LeftWall2"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginTop="180px"
+        android:layout_marginTop="220px"
         app:layout_constraintTop_toBottomOf="@+id/LeftWall1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -41,7 +41,7 @@
         android:id="@+id/RightWall1"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="180px"
+        android:layout_marginBottom="220px"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/RightWall2"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -49,7 +49,7 @@
         android:id="@+id/RightWall2"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginTop="180px"
+        android:layout_marginTop="220px"
         app:layout_constraintTop_toBottomOf="@+id/RightWall1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -109,29 +109,47 @@
         android:id="@+id/layout_left"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="5dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/layout_right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textViewLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:text="@string/WIN"
+            android:rotation="90"
+            />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/layout_right"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layout_left"
         app:layout_constraintTop_toTopOf="parent">
-
+        <TextView
+            android:id="@+id/textViewRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="50sp"
+            android:text="@string/LOSE"
+            android:rotation="-90"
+            />
     </FrameLayout>
 
     <Button
         android:id="@+id/TheButton"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/Start"
         android:textSize="30sp"
@@ -144,7 +162,7 @@
 
     <Button
         android:id="@+id/TheButton2"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/Back"
         android:textSize="30sp"

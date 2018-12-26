@@ -2,6 +2,7 @@ package imgc0312.appclassprojectgame;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -11,44 +12,62 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TableHockeyActivity extends Activity {
     Button theBtn,theBtn2;
-    FrameLayout leftLayout;
     MyObjectView leftPlayer;
-    FrameLayout rightLayout;
     MyObjectView rightPlayer;
     MyBallView theBall;
     List<MyWallView> theWalls = new ArrayList<>();
+    TextView[] winView = new TextView[2];
     public static Handler gameEvent;
+    public static final int MSG_FLASH = 0x000;
     public static final int MSG_GAMEINI = 0x001;
     public static final int MSG_LEFTWIN = 0x002;
     public static final int MSG_RIGHTWIN = 0x003;
+    Timer timer = new Timer();
+    TimerTask timeTask = new TimerTask() {
+        public void run() {
+            //Log.d("Timer Test", " test");
+            if(gameEvent != null)
+                gameEvent.sendEmptyMessage(MSG_FLASH);// flash screen
+        }
+    };
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_hockey);
-        leftLayout = (FrameLayout)findViewById(R.id.layout_left);
         leftPlayer = (MyObjectView)findViewById(R.id.left_Player);
         rightPlayer = (MyObjectView)findViewById(R.id.right_Player);
         theBall = (MyBallView)findViewById(R.id.theBall);
 
         theWalls.add((MyWallView)findViewById(R.id.LeftWall1));
         theWalls.get(theWalls.size()-1).wallRight = true;
+        theWalls.get(theWalls.size()-1).wallBottom = true;
         theWalls.add((MyWallView)findViewById(R.id.LeftWall2));
         theWalls.get(theWalls.size()-1).wallRight = true;
+        theWalls.get(theWalls.size()-1).wallTop = true;
         theWalls.add((MyWallView)findViewById(R.id.RightWall1));
         theWalls.get(theWalls.size()-1).wallLeft = true;
+        theWalls.get(theWalls.size()-1).wallBottom = true;
         theWalls.add((MyWallView)findViewById(R.id.RightWall2));
         theWalls.get(theWalls.size()-1).wallLeft = true;
+        theWalls.get(theWalls.size()-1).wallTop = true;
         theWalls.add((MyWallView)findViewById(R.id.TopWall));
         theWalls.get(theWalls.size()-1).wallBottom = true;
         theWalls.add((MyWallView)findViewById(R.id.BottomWall));
         theWalls.get(theWalls.size()-1).wallTop = true;
+
+        winView[0] = (TextView) findViewById(R.id.textViewLeft);
+        winView[1] = (TextView) findViewById(R.id.textViewRight);
 
         leftPlayer.setVisibility(View.INVISIBLE);
         rightPlayer.setVisibility(View.INVISIBLE);
@@ -69,6 +88,8 @@ public class TableHockeyActivity extends Activity {
                 onDestroy();
             }
         });
+        winView[0].setVisibility(View.INVISIBLE);
+        winView[1].setVisibility(View.INVISIBLE);
         //leftLayout.setOnTouchListener(new TouchMover(leftPlayer));
 
         gameEvent = new Handler()
@@ -77,6 +98,15 @@ public class TableHockeyActivity extends Activity {
             public void handleMessage(Message msg) {
                 //判断信息是否为本应用发出的
                 switch (msg.what){
+                    case MSG_FLASH:
+                        //通知组件进行重绘
+                        if(leftPlayer != null)
+                            leftPlayer.invalidate();
+                        if(rightPlayer != null)
+                            rightPlayer.invalidate();
+                        if(theBall != null)
+                            theBall.invalidate();
+                        break;
                     case MSG_GAMEINI:
                         leftPlayer.setVisibility(View.VISIBLE);
                         rightPlayer.setVisibility(View.VISIBLE);
@@ -94,20 +124,36 @@ public class TableHockeyActivity extends Activity {
                         theBall.handler.sendEmptyMessage(MyBallView.MSG_RUN);
                         theBtn.setVisibility(View.INVISIBLE);
                         theBtn2.setVisibility(View.INVISIBLE);
+                        winView[0].setVisibility(View.INVISIBLE);
+                        winView[1].setVisibility(View.INVISIBLE);
                         break;
                     case MSG_LEFTWIN:
                         theBtn.setVisibility(View.VISIBLE);
                         theBtn2.setVisibility(View.VISIBLE);
+                        winView[0].setVisibility(View.VISIBLE);
+                        winView[0].setText(R.string.WIN);
+                        winView[0].setTextColor(Color.WHITE);
+                        winView[1].setVisibility(View.VISIBLE);
+                        winView[1].setText(R.string.LOSE);
+                        winView[1].setTextColor(Color.RED);
                         break;
                     case MSG_RIGHTWIN:
                         theBtn.setVisibility(View.VISIBLE);
                         theBtn2.setVisibility(View.VISIBLE);
+                        winView[1].setVisibility(View.VISIBLE);
+                        winView[1].setText(R.string.WIN);
+                        winView[1].setTextColor(Color.WHITE);
+                        winView[0].setVisibility(View.VISIBLE);
+                        winView[0].setText(R.string.LOSE);
+                        winView[0].setTextColor(Color.RED);
                         break;
                 }
                 super.handleMessage(msg);
             }
         };
         theBall.connect(gameEvent);
+
+        timer.schedule(timeTask,20, 20);//flash task
     }
 
     protected class TouchMover implements View.OnTouchListener{
